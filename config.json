@@ -1,0 +1,38 @@
+{
+  "monitored_ports": [8080, 8443, 9090],
+  "enable_honeypot": true,
+  "enable_silent_redirect": true,
+  "log_attacks": true,
+  "attack_detection": {
+    "port_scan": {
+      "rapid_connections": 10,
+      "time_window": 5
+    },
+    "brute_force": {
+      "failed_attempts": 5,
+      "time_window": 10
+    },
+    "ddos": {
+      "connection_rate": 50,
+      "time_window": 1
+    }
+  },
+  "honeypot": {
+    "max_redirect_depth": 5,
+    "mirror_enabled": true
+  },
+  "silent_line": {
+    "enabled": true,
+    "legitimate_sites": [
+      "https://www.google.com",
+      "https://www.bing.com",
+      "https://www.wikipedia.org",
+      "https://www.github.com"
+    ]
+  },
+  "logging": {
+    "database_file": "attack_log.json",
+    "log_file": "portman_ai.log",
+    "enable_public_database": true
+  }
+}
