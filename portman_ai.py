@@ -179,6 +179,9 @@ class PortManager:
         self.honeypot = HoneypotMirror()
         self.attack_logger = AttackLogger()
         self.monitored_ports = config.get('monitored_ports', [80, 443, 22, 21])
+        # Bind address - use '0.0.0.0' for monitoring all interfaces (security tool requirement)
+        # Can be restricted to specific interface (e.g., '127.0.0.1') in production if needed
+        self.bind_address = config.get('bind_address', '0.0.0.0')
         self.running = False
         
     def start(self):
@@ -219,7 +222,10 @@ class PortManager:
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            sock.bind(('0.0.0.0', port))
+            # Intentionally binds to all interfaces for network monitoring
+            # This is required for a security monitoring tool to detect attacks from any source
+            # Configure bind_address in config.json to restrict if needed (e.g., '127.0.0.1')
+            sock.bind((self.bind_address, port))
             sock.listen(5)
             sock.settimeout(1.0)
             
@@ -302,6 +308,7 @@ def main():
     # Load configuration
     config = {
         'monitored_ports': [8080, 8443],  # Use non-privileged ports for testing
+        'bind_address': '0.0.0.0',  # Bind to all interfaces (required for network monitoring)
         'enable_honeypot': True,
         'enable_silent_redirect': True,
         'log_attacks': True

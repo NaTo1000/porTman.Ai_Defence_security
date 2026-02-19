@@ -77,6 +77,10 @@ Edit `config.json` to customize:
 
 Configuration options:
 - `monitored_ports`: List of ports to monitor
+- `bind_address`: Network interface to bind to (default: '0.0.0.0' for all interfaces)
+  - Use '0.0.0.0' to monitor all network interfaces (required for comprehensive security monitoring)
+  - Use '127.0.0.1' to restrict to localhost only (for testing or local monitoring)
+  - Use specific IP address to bind to single interface
 - `enable_honeypot`: Enable/disable honeypot redirection
 - `enable_silent_redirect`: Enable/disable silent line routing
 - `log_attacks`: Enable/disable attack logging
