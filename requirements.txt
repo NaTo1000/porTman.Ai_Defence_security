@@ -1,0 +1,7 @@
+# porTman.Ai Defence Security Requirements
+# No external dependencies required - uses Python standard library only
+# Python 3.7+ required
+
+# Optional dependencies for enhanced features:
+# pytest>=7.0.0  # For testing
+# flask>=2.0.0   # For web dashboard (future enhancement)
